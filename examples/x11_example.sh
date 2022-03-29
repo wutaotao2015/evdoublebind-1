@@ -10,6 +10,7 @@ echo "sudo evdoublebind-inspector -k : to get keyboards"
 sudo evdoublebind-inspector -k | awk '{print "kbd:" $1;}' >> basic.conf
 # the Escape and space here are useless, we can only use xcape to add them
 echo '<CAPS> : Super_L | Escape' >> basic.conf
+echo '<RTRN> : Super_R | Return' >> basic.conf
 echo '<SPCE> : Control_L | space' >> basic.conf
 
 # Generate XKB_option will go in `~/.xkb/symbols/evdoublebind` and `evdb.in`.
