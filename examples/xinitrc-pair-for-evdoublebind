@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#sleep 3
+setxkbmap -layout us -variant dvp
+
+# must use the evdoublebind x11_example.sh to generate the .xkb 
+# directory first
+setxkbmap -I$HOME/.xkb -rules 'evdev-doublebind' -option evdoublebind:mapping\
+ -print | xkbcomp -w 2 -I$HOME/.xkb - $DISPLAY
+echo "it is 'normal' for xkbcomp to output some warnings."
+
+killall xcape 2>/dev/null
+# find the keyname in /usr/include/X11/keysymdef.h
+xcape -e "Super_L=Escape;Super_R=Return;Control_L=space;"
+
+# make hjkl move faster
+xset r rate 300 50
+exec xmonad
