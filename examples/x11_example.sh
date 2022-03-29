@@ -8,26 +8,28 @@
 # run `evdoublebind-inspector` to identify your actual keyboards
 echo "sudo evdoublebind-inspector -k : to get keyboards"
 sudo evdoublebind-inspector -k | awk '{print "kbd:" $1;}' >> basic.conf
-echo '<CAPS> : Control_L   | Escape' >> basic.conf
+# the Escape and space here are useless, we can only use xcape to add them
+echo '<CAPS> : Super_L | Escape' >> basic.conf
+echo '<SPCE> : Control_L | space' >> basic.conf
 
 # Generate XKB_option will go in `~/.xkb/symbols/evdoublebind` and `evdb.in`.
 evdoublebind-make-config -c evdb.args basic.conf || exit #abort on failure
 
 #make sure no other instances are running
-killall evdoublebind
-
-#Start evdouble-bind
-cat evdb.args | while read args; do
-    evdoublebind $args &
-done
-
-# Alternatively you could generate the arguments from the config
-# and pass the directly
-# evdoublebind-make-config basic.conf | while read args; do
-#     sudo ../build/evdoublebind $args &
-# done
-
-#xkb to use the generated option
-setxkbmap -I$HOME/.xkb -rules 'evdev-doublebind' -option evdoublebind:mapping\
- -print | xkbcomp -w 2 -I$HOME/.xkb - $DISPLAY
-echo "it is 'normal' for xkbcomp to output some warnings."
+#killall evdoublebind
+#
+##Start evdouble-bind
+#cat evdb.args | while read args; do
+#   evdoublebind $args &
+#done
+#
+## Alternatively you could generate the arguments from the config
+## and pass the directly
+## evdoublebind-make-config basic.conf | while read args; do
+##     sudo ../build/evdoublebind $args &
+## done
+#
+##xkb to use the generated option
+#setxkbmap -I$HOME/.xkb -rules 'evdev-doublebind' -option evdoublebind:mapping\
+# -print | xkbcomp -w 2 -I$HOME/.xkb - $DISPLAY
+#echo "it is 'normal' for xkbcomp to output some warnings."
