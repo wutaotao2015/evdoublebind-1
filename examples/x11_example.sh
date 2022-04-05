@@ -12,7 +12,8 @@ sudo evdoublebind-inspector -k | awk '{print "kbd:" $1;}' >> basic.conf
 echo '<CAPS> : Control_L | Escape' >> basic.conf
 # change to other normals has bugs
 echo '<RTRN> : Control_R | Return' >> basic.conf
-echo '<SPCE> : Super_L | space' >> basic.conf
+# unusable for remote to windows system, and less useful, use your ring fingers instead!
+#echo '<SPCE> : Super_L | space' >> basic.conf
 
 # Generate XKB_option will go in `~/.xkb/symbols/evdoublebind` and `evdb.in`.
 evdoublebind-make-config -c evdb.args basic.conf || exit #abort on failure
